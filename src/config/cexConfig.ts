@@ -30,8 +30,12 @@ import {
     },
     destination: {},
     appearance: {
-      roundness: 42,
-      theme: ThemeName.DARK,
+      roundness: 12,
+        theme: ThemeName.DARK,
+        backgroundColor: "#0F172A",
+        dark: {
+            backgroundColor: "#0F172A",
+        },
     },
     apiKeys: {
       aarcSDK: import.meta.env.VITE_AARC_API_KEY,
