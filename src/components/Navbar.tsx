@@ -6,7 +6,7 @@ export const Navbar = ({ handleDisconnect }: { handleDisconnect: () => void }) =
     const { address } = useAccount();
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-aarc-bg/80 backdrop-blur-sm">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-injective-item-bg/90 backdrop-blur-sm border-b border-injective-border">
             <div className="mx-auto px-4 h-20 w-full flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                     <img
