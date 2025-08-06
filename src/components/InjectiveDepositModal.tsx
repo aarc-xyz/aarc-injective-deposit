@@ -168,7 +168,9 @@ export const InjectiveDepositModal = ({ aarcModal }: { aarcModal: AarcFundKitMod
                             <div className="w-full relative" ref={dropdownRef}>
                                 <button
                                     onClick={() => !shouldDisableInteraction && setIsDropdownOpen(!isDropdownOpen)}
-                                    className="w-full flex items-center p-3 bg-injective-item-dark-bg border border-injective-border rounded-2xl"
+                                    className={`w-full flex items-center p-3 bg-injective-item-dark-bg border border-injective-border rounded-2xl ${
+                                        shouldDisableInteraction ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                                    }`}
                                     disabled={shouldDisableInteraction}
                                 >
                                     <div className="flex items-center gap-3 flex-1">
@@ -190,7 +192,7 @@ export const InjectiveDepositModal = ({ aarcModal }: { aarcModal: AarcFundKitMod
                                 </button>
 
                                 {/* Dropdown Options */}
-                                {isDropdownOpen && (
+                                {isDropdownOpen && !shouldDisableInteraction && (
                                     <div className="absolute w-full mt-2 py-2 bg-injective-item-bg border border-injective-border rounded-2xl z-10 shadow-lg">
                                         {TOKENS.map(token => (
                                             <button
