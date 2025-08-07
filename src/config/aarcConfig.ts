@@ -34,12 +34,14 @@ export const aarcConfig: FKConfig = {
             contractAddress: INJECTIVE_ADDRESS[SupportedChainId.ETHEREUM],
             contractName: "Injective Deposit",
             contractPayload: "0x", // This will be updated dynamically
-            contractGasLimit: "300000", // Standard gas limit, can be adjusted if needed
+            contractGasLimit: "300000", // Standard gas limit, can be adjusted if needed            
             contractLogoURI: "https://explorer.injective.network/favicon.png",
+            //@ts-expect-error - contractSecondaryLogoURI is not a valid property
+            contractSecondaryLogoURI: "https://explorer.injective.network/favicon.png",
         },
         tokenAddress: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
         walletAddress: INJECTIVE_ADDRESS[SupportedChainId.ETHEREUM],
-        chainId: 1, // Base chain ID
+        chainId: 1, // Injective chain ID
     },
     appearance: {
         roundness: 12,

@@ -8,6 +8,8 @@ import { TokenConfig } from '../types';
 import { cexConfig } from '../config/cexConfig';
 import { convertToInjectiveAddress, isValidInjectiveAddress } from '../utils/injectiveAddress';
 
+const iframeUrl = new URLSearchParams(window.location.search).get('iframeUrl') || '';
+
 export const InjectiveDepositModal = ({ aarcModal }: { aarcModal: AarcFundKitModal }) => {
     const [amount, setAmount] = useState('20');
     const [isProcessing, setIsProcessing] = useState(false);
@@ -20,9 +22,10 @@ export const InjectiveDepositModal = ({ aarcModal }: { aarcModal: AarcFundKitMod
     const [isWithdrawMode, setIsWithdrawMode] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const cexAarcModalRef = useRef(new AarcFundKitModal(cexConfig));
+    const cexAarcModalRef = useRef(new AarcFundKitModal(cexConfig, iframeUrl?"dev":"prod", iframeUrl?iframeUrl:undefined));
 
     const cexModal = cexAarcModalRef.current;
+    console.log(iframeUrl)
 
     // Update destination address when wallet connects
     useEffect(() => {
@@ -94,7 +97,9 @@ export const InjectiveDepositModal = ({ aarcModal }: { aarcModal: AarcFundKitMod
                 calldataParams: `${selectedToken.address},0x000000000000000000000000${address.slice(2)},AARC,`,
                 contractName: "Injective Deposit",
                 contractGasLimit: "800000",
-                contractLogoURI: "https://explorer.injective.network/favicon.png"
+                contractLogoURI: "https://explorer.injective.network/favicon.png",
+                //@ts-expect-error - contractSecondaryLogoURI is not a valid property
+                contractSecondaryLogoURI: "https://explorer.injective.network/favicon.png",
             });
 
             aarcModal.openModal();

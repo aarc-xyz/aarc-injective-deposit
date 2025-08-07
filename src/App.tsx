@@ -9,9 +9,11 @@ import { aarcConfig } from './config/aarcConfig';
 import DepositModal from './components/InjectiveDepositModal';
 
 const queryClient = new QueryClient();
+const iframeUrl = new URLSearchParams(window.location.search).get('iframeUrl') || '';
+
 
 function App() {
-  const aarcModalRef = useRef(new AarcFundKitModal(aarcConfig));
+  const aarcModalRef = useRef(new AarcFundKitModal(aarcConfig, iframeUrl?"dev":"prod", iframeUrl?iframeUrl:undefined));
 
   const aarcModal = aarcModalRef.current;
 
