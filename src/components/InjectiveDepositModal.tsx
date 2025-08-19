@@ -4,7 +4,7 @@ import { INJECTIVE_ADDRESS, SupportedChainId, TOKENS } from '../constants';
 import { Navbar } from './Navbar';
 import { TokenConfig } from '../types';
 import { cexConfig } from '../config/cexConfig';
-import { isValidInjectiveAddress } from '../utils/injectiveAddress';
+import { isValidInjectiveAddress, convertInjectiveAddressToBytes32 } from '../utils/injectiveAddress';
 
 const iframeUrl = new URLSearchParams(window.location.search).get('iframeUrl') || '';
 
@@ -57,6 +57,14 @@ export const InjectiveDepositModal = ({ aarcModal }: { aarcModal: AarcFundKitMod
 
         try {
             setIsProcessing(true);
+
+            // Convert Injective address to bytes32 format
+            const bytes32Address = convertInjectiveAddressToBytes32(destinationAddress);
+            if (!bytes32Address) {
+                throw new Error('Failed to convert Injective address to bytes32 format');
+            }
+
+            // Update modal with amount and token information
             aarcModal.updateRequestedAmount(Number(amount));
             aarcModal.updateDestinationToken(selectedToken.address);
 
@@ -85,7 +93,7 @@ export const InjectiveDepositModal = ({ aarcModal }: { aarcModal: AarcFundKitMod
                         "type": "function"
                     }
                 ]),
-                calldataParams: `${selectedToken.address},0x000000000000000000000000${destinationAddress.slice(2)},AARC,`,
+                calldataParams: `${selectedToken.address},${bytes32Address},AARC,`,
                 contractName: "Injective Deposit",
                 contractGasLimit: "800000",
                 contractLogoURI: "https://explorer.injective.network/favicon.png",

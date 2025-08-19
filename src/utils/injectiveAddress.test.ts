@@ -1,4 +1,4 @@
-import { convertToInjectiveAddress, isValidInjectiveAddress, getEthereumAddressFromInjective } from './injectiveAddress';
+import { convertToInjectiveAddress, isValidInjectiveAddress, getEthereumAddressFromInjective, convertInjectiveAddressToBytes32 } from './injectiveAddress';
 
 // Test cases for address conversion
 const testCases = [
@@ -32,6 +32,11 @@ testCases.forEach(({ ethAddress, description }) => {
         const backToEth = getEthereumAddressFromInjective(injAddress);
         console.log(`Back to Ethereum: ${backToEth}`);
         console.log(`Round trip successful: ${backToEth.toLowerCase() === ethAddress.toLowerCase()}`);
+        
+        // Test the new bytes32 conversion
+        const bytes32Address = convertInjectiveAddressToBytes32(injAddress);
+        console.log(`Bytes32 address: ${bytes32Address}`);
+        console.log(`Bytes32 length: ${bytes32Address.length} (should be 66 for 0x + 64 hex chars)`);
     }
 });
 
