@@ -47,4 +47,30 @@ export const getEthereumAddressFromInjective = (injAddress: string): string => {
         console.error('Error converting Injective address to Ethereum address:', error);
         return '';
     }
+};
+
+/**
+ * Converts an Injective address to bytes32 format for smart contract calls
+ * This function first converts the Injective address to its Ethereum equivalent,
+ * then formats it as a bytes32 value with proper padding
+ * @param injAddress - The Injective address to convert
+ * @returns The bytes32 formatted address string
+ */
+export const convertInjectiveAddressToBytes32 = (injAddress: string): string => {
+    try {
+        // First convert Injective address to Ethereum address
+        const ethAddress = getEthereumAddressFromInjective(injAddress);
+        if (!ethAddress) {
+            throw new Error('Failed to convert Injective address to Ethereum address');
+        }
+        
+        // Remove the 0x prefix and pad with zeros to make it 64 characters (32 bytes)
+        const addressWithoutPrefix = ethAddress.slice(2);
+        const paddedAddress = addressWithoutPrefix.padStart(64, '0');
+        
+        return `0x${paddedAddress}`;
+    } catch (error) {
+        console.error('Error converting Injective address to bytes32:', error);
+        return '';
+    }
 }; 
